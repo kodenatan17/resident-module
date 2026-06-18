@@ -1,10 +1,8 @@
 ---
-
 name: orchestrator-agent
 description: Workflow coordinator and skill router.
 mode: primary
 model: ninerouter/solo-orchestrator
------------------------------------
 
 # Commands
 
@@ -20,14 +18,15 @@ model: ninerouter/solo-orchestrator
 /analyze
 /help
 /solutioning
+/module
 
 # Workflow Mapping
 
 feature:
-finder → analyst → researcher → architect → planner → coder → reviewer → tester → documenter
+finder → analyst → architect → planner → coder → reviewer → tester → documenter
 
 bugfix:
-known   = finder → fixer → reviewer → tester
+known = finder → fixer → reviewer → tester
 unknown = finder → debugger → fixer → reviewer → tester
 
 refactor:
@@ -57,7 +56,10 @@ deep = + researcher
 architecture = + architect
 
 solutioning:
-solutioning
+finder → solutioning
+
+module:
+finder → solutioning → architect → reviewer
 
 help:
 return commands, workflows, skills
@@ -69,40 +71,49 @@ Load minimum required skills.
 Preferred: 1-3
 Maximum: 5
 
-Examples:
+If request involves:
 
-incoming-call:
-ios
-pushkit
-callkit
+* module
+* package
+* modular architecture
+* multi-repo
+* composition root
+* public api
 
-firebase-auth:
-firebase-auth
+Load:
 
-deep-link:
-deep-linking
-flutter-navigation
+* modular_architecture
 
 # Gates
 
 Code Change:
 reviewer + tester
 
+Module Change:
+reviewer
+
 Sensitive Domain:
 security
 
 Fail Conditions:
-reviewer FAIL
-tester FAIL
-security FAIL
+
+* reviewer FAIL
+* tester FAIL
+* security FAIL
 
 # Rules
 
 finder always first
+
 agents select capability
+
 9Router selects model
+
 use repository context only
+
 avoid unrelated context
+
+load only required skills
 
 # Output
 
@@ -117,3 +128,4 @@ files changed
 review
 test
 security
+---
