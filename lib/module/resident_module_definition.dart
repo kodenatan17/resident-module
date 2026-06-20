@@ -7,6 +7,8 @@ import '../routes/resident_routes.dart';
 
 /// FeatureModule implementation for the Resident module.
 class ResidentModule extends FeatureModule {
+  bool _initialized = false;
+
   @override
   String get name => 'resident';
 
@@ -20,12 +22,19 @@ class ResidentModule extends FeatureModule {
   ModuleManifest get manifest => residentManifest;
 
   @override
-  List<ModulePermission> get permissions => residentManifest.permissions;
+  bool get isInitialized => _initialized;
 
   @override
   Future<void> initialize() async {
+    if (_initialized) return;
     // Async initialization: DB migrations, preloading, etc.
     // Currently no-op — extend as needed.
+    _initialized = true;
+  }
+
+  @override
+  void dispose() {
+    _initialized = false;
   }
 
   @override
