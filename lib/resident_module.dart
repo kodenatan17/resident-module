@@ -1,5 +1,5 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+// Resident Module - barrel exports.
+
+export 'public_api.dart';
+export 'module/resident_module_definition.dart';
+export 'manifest/manifest.dart';
