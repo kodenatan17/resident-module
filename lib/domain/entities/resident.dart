@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 enum ResidentStatus { active, inactive, pending }
 
-class Resident {
+class Resident extends Equatable {
   final String id;
   final String name;
   final String phoneNumber;
@@ -40,4 +42,7 @@ class Resident {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, phoneNumber, email, address, status, createdAt, updatedAt];
 }
