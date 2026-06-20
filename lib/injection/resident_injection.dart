@@ -18,11 +18,7 @@ void setupResidentInjection() {
   getIt.initResident();
 
   // ── Auth Dependencies (manual) ──────────────────────
-  getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(
-        baseUrl: 'https://api.rt-rw-digital.example.com/v1',
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
-      )));
+  // Dio already registered by core_module — reuse it.
   getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSource(getIt<Dio>()),
   );
